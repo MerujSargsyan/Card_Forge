@@ -7,7 +7,7 @@ all:
 	cd ./build && $(MAKE) 
 
 run: 
-	./build/bin/ChessClone
+	./build/bin/CardForge
 
 clean:
 	rm -rf build
