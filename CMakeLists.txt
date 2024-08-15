@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.11) # FetchContent is available in 3.11+
-project(ChessClone)
+project(CardForge)
 
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_STANDARD 11)
 
 # Dependencies
 set(RAYLIB_VERSION 5.0)
@@ -26,7 +27,7 @@ endif()
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${raylib_SOURCE_DIR}/src)
 
-set(SOURCE_FILES src/main.c)
+set(SOURCE_FILES src/main.cpp)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
