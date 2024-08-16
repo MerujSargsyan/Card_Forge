@@ -4,6 +4,8 @@
 
 const int window_size = 500;
 
+std::string format(string origin, int num, string color)
+
 typedef enum {
     NORMAL,
     SKIP,
