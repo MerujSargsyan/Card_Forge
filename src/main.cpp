@@ -1,19 +1,56 @@
 #include <raylib.h>
 #include <vector>
+#include <string>
 
 const int window_size = 500;
 
-std::vector<Texture2D> cards;
+typedef enum {
+    NORMAL,
+    SKIP,
+    REVERSE,
+    WILD,
+    DRAW4
+} CardType;
 
-void addCard() {
-    cards.push_back(LoadTexture("resources/small/blue_0.png"));
+class Card 
+{
+public:
+    int num;
+    Color color;
+    CardType type;
+    std::string src;
+    Vector2 pos;
+
+    Card(int num, Color color, CardType type) {
+        this.num = num;
+        this.color = color;
+        this.type = type;
+        src = std::format("resources/uno/{}_{}.png", color, num);
+        pos = {.x = 250, .y = 250};
+        txt = LoadTexture(src.c_str());
+    }
+    display() {
+        if(IsTextureReady(txt)) DrawTexture(txt, pos.x, pos.y, WHITE);
+    }
+
+private:
+    Texture2D txt;
+    ~Card() {
+        UnloadTexture(txt);
+    }
+
+}
+
+std::vector<Card> cards;
+
+
+void addCard(Card card) {
+    cards.push_back(card);
 }
 
 void update() {
-    int n = 0;
-    std::for_each(cards.begin(), cards.end(), [&n](Texture2D &txt){
-        if(IsTextureReady(txt)) DrawTexture(txt, n*50, n*50, WHITE);
-        n++;
+    std::for_each(cards.begin(), cards.end(), [](Card card) {
+        card.display();
     });
 }
 
@@ -21,9 +58,9 @@ int main(int argc, char** argv) {
     SetTargetFPS(30);
 
     InitWindow(window_size, window_size, "CardForge");
-    addCard();
-    addCard();
-    addCard();
+    addCard(BLUE, 0);
+    addCard(RED, 5);
+    addCard(YELLOW, 3);
     while(!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(WHITE);
@@ -31,6 +68,5 @@ int main(int argc, char** argv) {
         EndDrawing();
     }
     CloseWindow();
-    UnloadTexture(cards[0]);
     return 0;
 }
