@@ -41,6 +41,14 @@ public:
         pos = {.x = 250, .y = 250};
         txt = LoadTexture(src.c_str());
     }
+    Card(string color, char num, CardType type, float x, float y) {
+        this->num = num;
+        this->color = color;
+        this->type = type;
+        src = format(string("resources/uno/*_*.png"), num, color);
+        pos = {.x = x, .y = y};
+        txt = LoadTexture(src.c_str());
+    }
     ~Card() {
         UnloadTexture(txt);
     }
@@ -53,15 +61,21 @@ private:
     Texture2D txt;
 };
 
-std::vector<Card> cards;
+auto cards = std::vector<std::shared_ptr<Card>>();
 
-void addCard(const Card& card) {
-    cards.push_back(card);
+void addCard(string color, int num, CardType t) {
+    auto card_ptr = std::make_shared<Card>(color, num, t);
+    cards.push_back(card_ptr);
+}
+
+void addCard(string color, int num, CardType t, float x, float y) {
+    auto card_ptr = std::make_shared<Card>(color, num, t, x, y);
+    cards.push_back(card_ptr);
 }
 
 void update() {
-    for(int i = 0; i < cards.size(); i++) {
-        cards[i].display();
+    for(const std::shared_ptr<Card>& card : cards) {
+        card->display();
     }
 }
 
@@ -70,9 +84,8 @@ int main(int argc, char** argv) {
 
     InitWindow(window_size, window_size, "CardForge");
 
-    Card c = Card("blue", '0', NORMAL);
-
-    addCard(c); // card is going out of scope inside of here
+    addCard("blue", '0', NORMAL); // card is going out of scope inside of here
+    addCard("yellow", '0', NORMAL, 5.0f, 5.0f);
 
     while(!WindowShouldClose()) {
         BeginDrawing();
