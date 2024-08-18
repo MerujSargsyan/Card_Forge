@@ -1,10 +1,20 @@
 #include <raylib.h>
 #include <vector>
 #include <string>
+#include <iostream>
+
+using std::string;
 
 const int window_size = 500;
 
-std::string format(string origin, int num, string color)
+string format(string origin, char num, string color) {
+    int pos1 = origin.find('*', 0);
+    origin.replace(pos1, 1, color);
+    int pos2 = origin.find('*', 0);
+    origin.replace(pos2, 1, 1, num);
+    std::cout << origin << '\n';
+    return origin;
+}
 
 typedef enum {
     NORMAL,
@@ -18,51 +28,52 @@ class Card
 {
 public:
     int num;
-    Color color;
+    string color;
     CardType type;
-    std::string src;
+    string src;
     Vector2 pos;
 
-    Card(int num, Color color, CardType type) {
-        this.num = num;
-        this.color = color;
-        this.type = type;
-        src = std::format("resources/uno/{}_{}.png", color, num);
+    Card(string color, char num, CardType type) {
+        this->num = num;
+        this->color = color;
+        this->type = type;
+        src = format(string("resources/uno/*_*.png"), num, color);
         pos = {.x = 250, .y = 250};
         txt = LoadTexture(src.c_str());
     }
-    display() {
+    ~Card() {
+        UnloadTexture(txt);
+    }
+
+    void display() {
         if(IsTextureReady(txt)) DrawTexture(txt, pos.x, pos.y, WHITE);
     }
 
 private:
     Texture2D txt;
-    ~Card() {
-        UnloadTexture(txt);
-    }
-
-}
+};
 
 std::vector<Card> cards;
 
-
-void addCard(Card card) {
+void addCard(const Card& card) {
     cards.push_back(card);
 }
 
 void update() {
-    std::for_each(cards.begin(), cards.end(), [](Card card) {
-        card.display();
-    });
+    for(int i = 0; i < cards.size(); i++) {
+        cards[i].display();
+    }
 }
 
 int main(int argc, char** argv) {
     SetTargetFPS(30);
 
     InitWindow(window_size, window_size, "CardForge");
-    addCard(BLUE, 0);
-    addCard(RED, 5);
-    addCard(YELLOW, 3);
+
+    Card c = Card("blue", '0', NORMAL);
+
+    addCard(c); // card is going out of scope inside of here
+
     while(!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(WHITE);
