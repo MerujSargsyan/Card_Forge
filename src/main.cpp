@@ -24,6 +24,19 @@ typedef enum {
     DRAW4
 } CardType;
 
+class Game
+{
+public:
+    //Game(int player_count) {}
+    static void set_card_size(float x, float y) {
+        card_size = (Vector2){.x = x, .y = y};
+    }
+    void draw_cards()
+private:
+    Vector2 card_size;
+    std::vector<Container> containers;
+}
+
 class Card 
 {
 public:
@@ -49,12 +62,13 @@ public:
         pos = {.x = x, .y = y};
         txt = LoadTexture(src.c_str());
     }
-    ~Card() {
-        UnloadTexture(txt);
-    }
-
+    
     void display() {
         if(IsTextureReady(txt)) DrawTexture(txt, pos.x, pos.y, WHITE);
+    }
+
+    ~Card() {
+        UnloadTexture(txt);
     }
 
 private:
@@ -82,10 +96,12 @@ void update() {
 int main(int argc, char** argv) {
     SetTargetFPS(30);
 
+    Game.set_card_size(50.0f, 50.0f);
     InitWindow(window_size, window_size, "CardForge");
 
     addCard("blue", '0', NORMAL); // card is going out of scope inside of here
     addCard("yellow", '0', NORMAL, 5.0f, 5.0f);
+    addCard("green", '9', NORMAL, 35.0f, 40.0f);
 
     while(!WindowShouldClose()) {
         BeginDrawing();
