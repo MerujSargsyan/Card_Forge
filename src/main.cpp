@@ -97,6 +97,7 @@ private:
 };
 
 int main(int argc, char** argv) {
+    SetTraceLogLevel(LOG_WARNING);
     SetTargetFPS(30);
 
     Game g = Game(50.0f, 50.0f);
