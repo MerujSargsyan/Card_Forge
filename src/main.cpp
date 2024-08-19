@@ -96,12 +96,6 @@ private:
     std::vector<std::shared_ptr<Card>> cards;
 };
 
-
-
-void update() {
-    
-}
-
 int main(int argc, char** argv) {
     SetTargetFPS(30);
 
