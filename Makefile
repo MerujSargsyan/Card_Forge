@@ -6,9 +6,6 @@ all:
 	cd ./build && cmake ..
 	cd ./build && $(MAKE) 
 
-run: 
-	./build/bin/CardForge
-
 clean:
 	rm -rf build
 

@@ -1,11 +1,6 @@
 #include <raylib.h>
-#include <vector>
-#include <string>
-#include <iostream>
 
 using std::string;
-
-const int window_size = 500;
 
 string format(string origin, char num, string color) {
     int pos1 = origin.find('*', 0);
@@ -62,57 +57,57 @@ private:
     Texture2D txt;
 };
 
+class Container;
+
 class Game
 {
 public:
+    static Vector2 card_size;
+
     Game(float card_width, float card_height) {
         card_size = (Vector2){.x = card_width, .y = card_height};
-        cards = std::vector<std::shared_ptr<Card>>();
+        containers = std::vector<std::shared_ptr<Container>>();
     }
 
     void update() {
+        for(const std::shared_ptr<Container>& cont : containers) {
+            cont->display();
+        }
+    }
+
+    static void set_card_size(float x, float y) {
+        // TODO
+    }
+
+    void update_card_size() {
+        // TODO
+    }
+private:
+    std::vector<std::shared_ptr<Container>> containers;
+};
+
+Vector2 Game::card_size = {75.0f, 50.0f};
+
+class Container 
+{
+public:
+    Rectangle rect;
+
+    Container(float start_x, float start_y, int init_count) {
+        rect = Rectangle(start_x, start_y, Game::card_size.x * init_count, Game::card_size.y, BLACK);   
+    }
+
+    void add_card(string color, int num, CardType t) {
+        auto card_ptr = std::make_shared<Card>(color, num, t, 50.0f, 50.0f);
+        cards.push_back(card_ptr);
+    }
+
+    void display() {
         for(const std::shared_ptr<Card>& card : cards) {
             card->display();
         }
     }
 
-    static void set_card_size(float x, float y) {
-        //card_size = (Vector2){.x = x, .y = y};
-    }
-
-    void update_card_size() {
-        for(const std::shared_ptr<Card>& card : cards) {
-            //card->texture = ;
-        }
-    }
-
-    void add_card(string color, int num, CardType t, float x, float y) {
-        auto card_ptr = std::make_shared<Card>(color, num, t, x, y);
-        cards.push_back(card_ptr);
-    }
-
 private:
-    Vector2 card_size;
     std::vector<std::shared_ptr<Card>> cards;
 };
-
-int main(int argc, char** argv) {
-    SetTraceLogLevel(LOG_WARNING);
-    SetTargetFPS(30);
-
-    Game g = Game(50.0f, 50.0f);
-    InitWindow(window_size, window_size, "CardForge");
-
-    g.add_card("yellow", '0', NORMAL, 5.0f, 5.0f);
-    g.add_card("green", '9', NORMAL, 35.0f, 40.0f);
-    g.add_card("green", '9', NORMAL, 125.0f, 125.0f);
-
-    while(!WindowShouldClose()) {
-        BeginDrawing();
-        ClearBackground(WHITE);
-        g.update();
-        EndDrawing();
-    }
-    CloseWindow();
-    return 0;
-}
