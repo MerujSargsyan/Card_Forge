@@ -1,0 +1,6 @@
+[submodule "raylib_temp"]
+	path = raylib_temp
+	url = https://github.com/raysan5/raylib
+[submodule "raylib"]
+	path = raylib
+	url = https://github.com/raysan5/raylib
