@@ -1,3 +1,6 @@
+#ifndef CARDFORGE_H
+#define CARDFORGE_H
+
 #include <raylib.h>
 #include <string>
 #include <vector>
@@ -5,13 +8,7 @@
 
 using std::string;
 
-string format(string origin, char num, string color) {
-    int pos1 = origin.find('*', 0);
-    origin.replace(pos1, 1, color);
-    int pos2 = origin.find('*', 0);
-    origin.replace(pos2, 1, 1, num);
-    return origin;
-}
+string format(string origin, char num, string color); 
 
 typedef enum {
     NORMAL,
@@ -75,3 +72,5 @@ public:
 private:
     std::vector<std::shared_ptr<Card>> cards;
 };*/
+
+#endif

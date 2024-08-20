@@ -1,6 +1,12 @@
-#ifndef CARDFORGE_H
-#define CARDFORGE_H
 #include "cardforge.hpp"
+
+string format(string origin, char num, string color) {
+    int pos1 = origin.find('*', 0);
+    origin.replace(pos1, 1, color);
+    int pos2 = origin.find('*', 0);
+    origin.replace(pos2, 1, 1, num);
+    return origin;
+}
 
 Card::Card(string color, char num, CardType type) {
     this->num = num;
@@ -37,4 +43,3 @@ void Game::add_card(string color, int num, CardType t) {
 }
 
 Vector2 Game::card_size = {75.0f, 50.0f};
-#endif
