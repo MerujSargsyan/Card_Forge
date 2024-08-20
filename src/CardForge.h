@@ -111,3 +111,26 @@ public:
 private:
     std::vector<std::shared_ptr<Card>> cards;
 };
+<<<<<<< HEAD:src/CardForge.h
+=======
+
+int main(int argc, char** argv) {
+    SetTargetFPS(30);
+
+    Game g = Game(50.0f, 50.0f);
+    InitWindow(window_size, window_size, "CardForge");
+
+    g.add_card("yellow", '0', NORMAL, 5.0f, 5.0f);
+    g.add_card("green", '9', NORMAL, 35.0f, 40.0f);
+    g.add_card("green", '9', NORMAL, 125.0f, 125.0f);
+
+    while(!WindowShouldClose()) {
+        BeginDrawing();
+        ClearBackground(WHITE);
+        g.update();
+        EndDrawing();
+    }
+    CloseWindow();
+    return 0;
+}
+>>>>>>> main:src/main.cpp
