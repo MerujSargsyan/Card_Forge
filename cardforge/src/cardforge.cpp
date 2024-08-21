@@ -12,7 +12,7 @@ Card::Card(string color, char num, CardType type) {
     this->num = num;
     this->color = color;
     this->type = type;
-    src = format(string("../resources/uno/*_*.png"), num, color); // TODO: make more general
+    src = format(string("./resources/uno/*_*.png"), num, color); // TODO: make more general
     pos = {.x = 250, .y = 250};
     txt = LoadTexture(src.c_str());
 }

@@ -8,6 +8,8 @@
 
 using std::string;
 
+static Vector2 card_size = {.x = 40.0f, .y = 50.0f};
+
 string format(string origin, char num, string color); 
 
 typedef enum {
@@ -55,11 +57,11 @@ public:
     Rectangle rect;
 
     Container(float start_x, float start_y, int init_count) {
-        rect = Rectangle(start_x, start_y, Game::card_size.x * init_count, Game::card_size.y, BLACK);   
+        rect = Rectangle(start_x, start_y, card_size.x * init_count, card_size.y, BLACK);   
     }
 
     void add_card(string color, int num, CardType t) {
-        auto card_ptr = std::make_shared<Card>(color, num, t, 50.0f, 50.0f);
+        auto card_ptr = std::make_shared<Card>(color, num, t);
         cards.push_back(card_ptr);
     }
 
