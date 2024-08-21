@@ -30,16 +30,29 @@ Game::Game(float card_width, float card_height) {
     cards = std::vector<std::shared_ptr<Card>>();
 }
 
-
 void Game::update() {
+    for(const std::shared_ptr<Container>& cont : containers) {
+        cont->display();
+    }
+}
+
+void Game::add_container(Container* container) {
+    auto cont_ptr = std::make_shared<Container>(container);
+    containers.push_back(cont_ptr);
+}
+
+Container::Container(float start_x, float start_y, int init_count) {
+    rect = Rectangle(start_x, start_y, card_size.x * init_count, card_size.y, BLACK);   
+    containers = std::vector<std::shared_ptr<Card>>();
+}
+
+void Container::add_card(string color, int num, CardType t) {
+    auto card_ptr = std::make_shared<Card>(color, num, t);
+    .push_back(card_ptr);
+}
+
+void display() {
     for(const std::shared_ptr<Card>& card : cards) {
         card->display();
     }
 }
-
-void Game::add_card(string color, int num, CardType t) {
-    auto card_ptr = std::make_shared<Card>(color, num, t);
-    cards.push_back(card_ptr);
-}
-
-Vector2 Game::card_size = {75.0f, 50.0f};
