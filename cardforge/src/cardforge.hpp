@@ -8,7 +8,7 @@
 
 using std::string;
 
-static Vector2 card_size = {.x = 150.0f, .y = 50.0f};
+static float card_scale = 1.0f;
 
 string format(string origin, char num, string color); 
 
@@ -51,7 +51,7 @@ private:
 class Game
 {
 public:
-    Game(float card_width, float card_height);
+    Game(float card_scale);
     void update();
     void add_container(float start_x, float start_y, int init_count);
     std::vector<std::shared_ptr<Container>> containers;

@@ -17,15 +17,15 @@ Card::Card(string color, char num, CardType type) {
 }
 
 void Card::display(float x, float y) {
-    if(IsTextureReady(txt)) DrawTexture(txt, x, y, WHITE);
+    if(IsTextureReady(txt)) DrawTextureEx(txt, (Vector2){x, y}, 0.0f, 0.5f, WHITE);
 }
 
 Card::~Card() {
     UnloadTexture(txt);
 }
 
-Game::Game(float card_width, float card_height) {
-    card_size = (Vector2){.x = card_width, .y = card_height};
+Game::Game(float card_scale) {
+    this->card_scale = card_scale;
     containers = std::vector<std::shared_ptr<Container>>();
 }
 
