@@ -13,12 +13,11 @@ Card::Card(string color, char num, CardType type) {
     this->color = color;
     this->type = type;
     src = format(string("./resources/uno/*_*.png"), num, color); // TODO: make more general
-    pos = {.x = 250, .y = 250};
     txt = LoadTexture(src.c_str());
 }
 
-void Card::display() {
-    if(IsTextureReady(txt)) DrawTexture(txt, pos.x, pos.y, WHITE);
+void Card::display(float x, float y) {
+    if(IsTextureReady(txt)) DrawTexture(txt, x, y, WHITE);
 }
 
 Card::~Card() {
@@ -52,7 +51,10 @@ void Container::add_card(string color, int num, CardType t) {
 }
 
 void Container::display() {
+    float current_x = rect.x;
+    float current_y = rect.y;
     for(const std::shared_ptr<Card>& card : cards) {
-        card->display();
+        card->display(current_x, current_y);
+        current_x += card_size.x;
     }
 }

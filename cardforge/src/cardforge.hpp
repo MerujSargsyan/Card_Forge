@@ -8,7 +8,7 @@
 
 using std::string;
 
-static Vector2 card_size = {.x = 40.0f, .y = 50.0f};
+static Vector2 card_size = {.x = 150.0f, .y = 50.0f};
 
 string format(string origin, char num, string color); 
 
@@ -27,10 +27,9 @@ public:
     string color;
     CardType type;
     string src;
-    Vector2 pos;
 
     Card(string color, char num, CardType type);
-    void display();
+    void display(float x, float y);
     ~Card();
 
 private:
