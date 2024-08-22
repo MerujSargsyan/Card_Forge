@@ -1,0 +1,7 @@
+[ ] Draw cards based on containers
+[ ] Manage card direction within containers
+
+... // many more to do here
+
+[ ] Make game loop
+[ ] Finish
