@@ -27,7 +27,7 @@ Card::~Card() {
 
 Game::Game(float card_width, float card_height) {
     card_size = (Vector2){.x = card_width, .y = card_height};
-    cards = std::vector<std::shared_ptr<Card>>();
+    containers = std::vector<std::shared_ptr<Container>>();
 }
 
 void Game::update() {
@@ -36,22 +36,22 @@ void Game::update() {
     }
 }
 
-void Game::add_container(Container* container) {
-    auto cont_ptr = std::make_shared<Container>(container);
+void Game::add_container(float start_x, float start_y, int init_count) {
+    auto cont_ptr = std::make_shared<Container>(start_x, start_y, init_count);
     containers.push_back(cont_ptr);
 }
 
 Container::Container(float start_x, float start_y, int init_count) {
-    rect = Rectangle(start_x, start_y, card_size.x * init_count, card_size.y, BLACK);   
-    containers = std::vector<std::shared_ptr<Card>>();
+    rect = (Rectangle){start_x, start_y, card_size.x * init_count, card_size.y};   
+    cards = std::vector<std::shared_ptr<Card>>();
 }
 
 void Container::add_card(string color, int num, CardType t) {
     auto card_ptr = std::make_shared<Card>(color, num, t);
-    .push_back(card_ptr);
+    cards.push_back(card_ptr);
 }
 
-void display() {
+void Container::display() {
     for(const std::shared_ptr<Card>& card : cards) {
         card->display();
     }

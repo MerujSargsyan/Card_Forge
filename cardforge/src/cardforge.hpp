@@ -46,7 +46,7 @@ public:
     void add_card(string color, int num, CardType t);
     void display();
 private:
-    std::vector<std::shared_ptr<Card>> containers;
+    std::vector<std::shared_ptr<Card>> cards;
 };
 
 class Game
@@ -54,8 +54,7 @@ class Game
 public:
     Game(float card_width, float card_height);
     void update();
-    void add_container(string color, int num, CardType t);
-private:
+    void add_container(float start_x, float start_y, int init_count);
     std::vector<std::shared_ptr<Container>> containers;
 };
 
