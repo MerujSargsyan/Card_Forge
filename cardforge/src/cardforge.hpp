@@ -41,9 +41,10 @@ class Container
 public:
     Rectangle rect;
     float x_padding;
+    float y_padding;
 
     Container(float start_x, float start_y, int init_count); 
-    Container(float start_x, float start_y, float x_padding, int init_count); 
+    Container(float start_x, float start_y, float x_padding, float y_padding, int init_count); 
     void add_card(string color, int num, CardType t);
     void display();
 private:
@@ -56,7 +57,7 @@ public:
     Game(float card_scale);
     void update();
     void add_container(float start_x, float start_y, int init_count);
-    void add_container(float start_x, float start_y, float x_padding, int init_count);
+    void add_container(float start_x, float start_y, float x_padding, float y_padding, int init_count);
     std::vector<std::shared_ptr<Container>> containers;
 };
 
