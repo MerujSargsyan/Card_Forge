@@ -1,4 +1,6 @@
 [ ] Draw cards based on containers
+    [ ] Handle drawing with rotation nicely
+
 [ ] Manage card direction within containers
 
 ... // many more to do here

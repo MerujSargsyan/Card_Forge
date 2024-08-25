@@ -27,8 +27,10 @@ public:
     string color;
     CardType type;
     string src;
+    float rotation;
 
     Card(string color, char num, CardType type);
+    Card(string color, char num, float rotation, CardType type);
     void display(float x, float y);
     ~Card();
 
@@ -46,6 +48,7 @@ public:
     Container(float start_x, float start_y, int init_count); 
     Container(float start_x, float start_y, float x_padding, float y_padding, int init_count); 
     void add_card(string color, int num, CardType t);
+    void add_card(string color, int num, float rotation, CardType t);
     void display();
 private:
     std::vector<std::shared_ptr<Card>> cards;

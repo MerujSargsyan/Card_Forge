@@ -14,10 +14,20 @@ Card::Card(string color, char num, CardType type) {
     this->type = type;
     src = format(string("./resources/uno/*_*.png"), num, color); // TODO: make more general
     txt = LoadTexture(src.c_str());
+    rotation = 0;
+}
+
+Card::Card(string color, char num, float rotation, CardType type) {
+    this->num = num;
+    this->color = color;
+    this->type = type;
+    src = format(string("./resources/uno/*_*.png"), num, color); // TODO: make more general
+    txt = LoadTexture(src.c_str());
+    this->rotation = rotation;
 }
 
 void Card::display(float x, float y) {
-    if(IsTextureReady(txt)) DrawTextureEx(txt, (Vector2){x, y}, 0.0f, card_scale, WHITE);
+    if(IsTextureReady(txt)) DrawTextureEx(txt, (Vector2){x, y}, rotation, card_scale, WHITE);
 }
 
 Card::~Card() {
@@ -49,6 +59,7 @@ Container::Container(float start_x, float start_y, int init_count) {
     rect = (Rectangle){start_x, start_y, 1.0f, 1.0f};   
     cards = std::vector<std::shared_ptr<Card>>();
     x_padding = 50.0f;
+    y_padding = 0.0f;
 }
 
 Container::Container(float start_x, float start_y, float x_padding, float y_padding, int init_count) {
@@ -60,6 +71,11 @@ Container::Container(float start_x, float start_y, float x_padding, float y_padd
 
 void Container::add_card(string color, int num, CardType t) {
     auto card_ptr = std::make_shared<Card>(color, num, t);
+    cards.push_back(card_ptr);
+}
+
+void Container::add_card(string color, int num, float rotation, CardType t) {
+    auto card_ptr = std::make_shared<Card>(color, num, rotation, t);
     cards.push_back(card_ptr);
 }
 
