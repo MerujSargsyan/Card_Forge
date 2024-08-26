@@ -1,21 +1,4 @@
-#include <cardforge.hpp>
-
-typedef enum {
-    NORMAL,
-    SKIP,
-    REVERSE,
-    WILD,
-    DRAW4
-} CardType;
-
-string format(string color, char num) {
-    string origin = "./resources/uno/*_*.png";
-    int pos1 = origin.find('*', 0);
-    origin.replace(pos1, 1, color);
-    int pos2 = origin.find('*', 0);
-    origin.replace(pos2, 1, 1, num);
-    return origin;
-}
+#include "unolib.hpp"
 
 int main(void) {
     Game g = Game(0.5f);
