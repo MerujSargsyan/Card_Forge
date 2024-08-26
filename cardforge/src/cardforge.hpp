@@ -10,25 +10,14 @@ using std::string;
 
 static float card_scale = 1.0f;
 
-typedef enum {
-    NORMAL,
-    SKIP,
-    REVERSE,
-    WILD,
-    DRAW4
-} CardType;
-
 class Card 
 {
 public:
-    int num;
-    string color;
-    CardType type;
     string src;
     float rotation;
 
-    Card(string color, char num, CardType type, string src);
-    Card(string color, char num, float rotation, CardType type, string src);
+    Card(string src);
+    Card(float rotation, string src);
     void display(float x, float y);
     ~Card();
 
@@ -45,8 +34,8 @@ public:
 
     Container(float start_x, float start_y); 
     Container(float start_x, float start_y, float x_padding, float y_padding); 
-    void add_card(string color, int num, CardType t, string src);
-    void add_card(string color, int num, float rotation, CardType t, string src);
+    void add_card(string src);
+    void add_card(float rotation, string src);
     void display();
 private:
     std::vector<std::shared_ptr<Card>> cards;
@@ -62,6 +51,4 @@ public:
     std::vector<std::shared_ptr<Container>> containers;
 };
 
-
-
-#endif
+#endif // CARDFORGE_HPP

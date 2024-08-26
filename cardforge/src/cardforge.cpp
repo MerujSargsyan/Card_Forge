@@ -1,18 +1,12 @@
 #include "cardforge.hpp"
 
-Card::Card(string color, char num, CardType type, string src) {
-    this->num = num;
-    this->color = color;
-    this->type = type;
+Card::Card(string src) {
     this->src = src;
     txt = LoadTexture(src.c_str());
     rotation = 0;
 }
 
-Card::Card(string color, char num, float rotation, CardType type, string src) {
-    this->num = num;
-    this->color = color;
-    this->type = type;
+Card::Card(float rotation, string src) {
     this->src = src;
     txt = LoadTexture(src.c_str());
     this->rotation = rotation;
@@ -61,13 +55,13 @@ Container::Container(float start_x, float start_y, float x_padding, float y_padd
     this->y_padding = y_padding;
 }
 
-void Container::add_card(string color, int num, CardType t, string src) {
-    auto card_ptr = std::make_shared<Card>(color, num, t, src);
+void Container::add_card(string src) {
+    auto card_ptr = std::make_shared<Card>(src);
     cards.push_back(card_ptr);
 }
 
-void Container::add_card(string color, int num, float rotation, CardType t, string src) {
-    auto card_ptr = std::make_shared<Card>(color, num, rotation, t, src);
+void Container::add_card(float rotation, string src) { 
+    auto card_ptr = std::make_shared<Card>(rotation, src);
     cards.push_back(card_ptr);
 }
 
