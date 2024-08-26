@@ -8,8 +8,10 @@ BUILDIR="./build"
 
 mkdir -p build
 
+$CC -S $CFLAGS -c src/unolib.hpp -L$FORGESRC -I$FORGESRC -lcardforge -o $BUILDIR/unolib.o 
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    $CC $CFLAGS -o $BUILDIR/uno_test src/uno_test.cpp -Isrc/unolib.o -L$FORGESRC -I$FORGESRC -lcardforge -L$RAYDIR -I$RAYDIR -lraylib -framework Cocoa -framework IOKit -framework OpenGL
+    $CC $CFLAGS -o $BUILDIR/uno_test src/uno_test.cpp -I$BUILDIR/unolib.o -L$FORGESRC -I$FORGESRC -lcardforge -L$RAYDIR -I$RAYDIR -lraylib -framework Cocoa -framework IOKit -framework OpenGL
 else
-    $CC $CFLAGS -o $BUILDIR/uno_test src/uno_test.cpp -Isrc/unolib.o -L$FORGESRC -I$FORGESRC -lcardforge -L$RAYDIR -I$RAYDIR -lraylib
+    $CC $CFLAGS -o $BUILDIR/uno_test src/uno_test.cpp -I$BUILDIR/unolib.o -L$FORGESRC -I$FORGESRC -lcardforge -L$RAYDIR -I$RAYDIR -lraylib
 fi

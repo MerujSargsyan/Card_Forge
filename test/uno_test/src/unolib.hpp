@@ -1,7 +1,7 @@
-#ifndef CARDFORGE_HPP
-#define CARDFORGE_HPP
-
+//#ifndef CARDFORGE_H
+//#define CARDFORGE_H
 #include <cardforge.hpp>
+//#endif
 
 typedef enum {
     NORMAL,
@@ -20,7 +20,7 @@ string format(string color, char num) {
     return origin;
 }
 
-class UnoCard: Card
+class UnoCard: public Card
 {
 public:
     string color;
@@ -38,6 +38,3 @@ public:
         this->t = t;
     }
 };
-
-#endif //CARDFORGE_HPP
-
