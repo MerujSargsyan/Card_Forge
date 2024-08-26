@@ -10,8 +10,6 @@ using std::string;
 
 static float card_scale = 1.0f;
 
-string format(string origin, char num, string color); 
-
 typedef enum {
     NORMAL,
     SKIP,
@@ -29,8 +27,8 @@ public:
     string src;
     float rotation;
 
-    Card(string color, char num, CardType type);
-    Card(string color, char num, float rotation, CardType type);
+    Card(string color, char num, CardType type, string src);
+    Card(string color, char num, float rotation, CardType type, string src);
     void display(float x, float y);
     ~Card();
 
@@ -45,10 +43,10 @@ public:
     float x_padding;
     float y_padding;
 
-    Container(float start_x, float start_y, int init_count); 
-    Container(float start_x, float start_y, float x_padding, float y_padding, int init_count); 
-    void add_card(string color, int num, CardType t);
-    void add_card(string color, int num, float rotation, CardType t);
+    Container(float start_x, float start_y); 
+    Container(float start_x, float start_y, float x_padding, float y_padding); 
+    void add_card(string color, int num, CardType t, string src);
+    void add_card(string color, int num, float rotation, CardType t, string src);
     void display();
 private:
     std::vector<std::shared_ptr<Card>> cards;
@@ -59,8 +57,8 @@ class Game
 public:
     Game(float card_scale);
     void update();
-    void add_container(float start_x, float start_y, int init_count);
-    void add_container(float start_x, float start_y, float x_padding, float y_padding, int init_count);
+    void add_container(float start_x, float start_y);
+    void add_container(float start_x, float start_y, float x_padding, float y_padding);
     std::vector<std::shared_ptr<Container>> containers;
 };
 

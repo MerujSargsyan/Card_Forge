@@ -1,27 +1,19 @@
 #include "cardforge.hpp"
 
-string format(string origin, char num, string color) {
-    int pos1 = origin.find('*', 0);
-    origin.replace(pos1, 1, color);
-    int pos2 = origin.find('*', 0);
-    origin.replace(pos2, 1, 1, num);
-    return origin;
-}
-
-Card::Card(string color, char num, CardType type) {
+Card::Card(string color, char num, CardType type, string src) {
     this->num = num;
     this->color = color;
     this->type = type;
-    src = format(string("./resources/uno/*_*.png"), num, color); // TODO: make more general
+    this->src = src;
     txt = LoadTexture(src.c_str());
     rotation = 0;
 }
 
-Card::Card(string color, char num, float rotation, CardType type) {
+Card::Card(string color, char num, float rotation, CardType type, string src) {
     this->num = num;
     this->color = color;
     this->type = type;
-    src = format(string("./resources/uno/*_*.png"), num, color); // TODO: make more general
+    this->src = src;
     txt = LoadTexture(src.c_str());
     this->rotation = rotation;
 }
@@ -45,37 +37,37 @@ void Game::update() {
     }
 }
 
-void Game::add_container(float start_x, float start_y, int init_count) {
-    auto cont_ptr = std::make_shared<Container>(start_x, start_y, init_count);
+void Game::add_container(float start_x, float start_y) {
+    auto cont_ptr = std::make_shared<Container>(start_x, start_y);
     containers.push_back(cont_ptr);
 }
 
-void Game::add_container(float start_x, float start_y, float x_padding, float y_padding, int init_count) {
-    auto cont_ptr = std::make_shared<Container>(start_x, start_y, x_padding, y_padding, init_count);
+void Game::add_container(float start_x, float start_y, float x_padding, float y_padding) {
+    auto cont_ptr = std::make_shared<Container>(start_x, start_y, x_padding, y_padding);
     containers.push_back(cont_ptr);
 }
 
-Container::Container(float start_x, float start_y, int init_count) {
+Container::Container(float start_x, float start_y) {
     rect = (Rectangle){start_x, start_y, 1.0f, 1.0f};   
     cards = std::vector<std::shared_ptr<Card>>();
     x_padding = 50.0f;
     y_padding = 0.0f;
 }
 
-Container::Container(float start_x, float start_y, float x_padding, float y_padding, int init_count) {
+Container::Container(float start_x, float start_y, float x_padding, float y_padding) {
     rect = (Rectangle){start_x, start_y, 1.0f, 1.0f};   
     cards = std::vector<std::shared_ptr<Card>>();
     this->x_padding = x_padding;
     this->y_padding = y_padding;
 }
 
-void Container::add_card(string color, int num, CardType t) {
-    auto card_ptr = std::make_shared<Card>(color, num, t);
+void Container::add_card(string color, int num, CardType t, string src) {
+    auto card_ptr = std::make_shared<Card>(color, num, t, src);
     cards.push_back(card_ptr);
 }
 
-void Container::add_card(string color, int num, float rotation, CardType t) {
-    auto card_ptr = std::make_shared<Card>(color, num, rotation, t);
+void Container::add_card(string color, int num, float rotation, CardType t, string src) {
+    auto card_ptr = std::make_shared<Card>(color, num, rotation, t, src);
     cards.push_back(card_ptr);
 }
 
